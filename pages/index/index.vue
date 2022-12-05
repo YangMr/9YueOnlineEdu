@@ -1,8 +1,8 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+		<view class="flex">
+			<view>1</view>
+			<view>2</view>
 		</view>
 	</view>
 </template>

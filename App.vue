@@ -14,4 +14,9 @@
 
 <style>
 	/*每个页面公共css */
+	
+	/* 公共(全局)样式 */
+	@import url("@/common/css/free.css");
+	
+	
 </style>
