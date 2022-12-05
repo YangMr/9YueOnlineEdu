@@ -1,0 +1,25 @@
+/* 主色调 */
+/* 主背景色 */
+.bg-main{
+	background-color: rgb(92, 204, 132);
+}
+.bg-main-hover{
+	background-color: #4bc175;
+}
+.bg-main-disabled{
+	background-color: #7be09f;
+}
+/* 主文字色 */
+.text-main{
+	color: rgb(92, 204, 132);
+}
+.border-main{
+	border-color: rgb(92, 204, 132);
+}
+/* 分割线 */
+.divider{
+	height: 15rpx;
+	background-color: #f5f5f3;
+}
+
+

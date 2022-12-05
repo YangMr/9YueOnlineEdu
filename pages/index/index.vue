@@ -1,9 +1,21 @@
 <template>
 	<view class="content">
+		<!-- free.css -->
 		<view class="flex">
 			<view>1</view>
 			<view>2</view>
 		</view>
+		
+		<!-- common.css -->
+		<view class="bg-main p-2">hello word</view>
+		
+		<!-- animate.css -->
+		<view :class="[active ? 'animate__bounceOutLeft' : '']" class="animate__animated  bg-main p-2">hello word</view>
+	
+		<button @click="active = true">click</button>
+		
+		<!-- iconfont.css -->
+		<text class="iconfont icon-mail" style="font-size:100rpx; color:yellow;"></text>
 	</view>
 </template>
 
@@ -11,7 +23,8 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello',
+				active : false
 			}
 		},
 		onLoad() {
