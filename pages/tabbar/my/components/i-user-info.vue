@@ -1,5 +1,5 @@
 <template>
-	<view class="user-info flex justify-between align-center">
+	<view @click="handleToPath" class="user-info flex justify-between align-center">
 		<view class="left flex">
 			<image class="avatar" src="/static/demo/icon/test.png" mode=""></image>
 			<view class="ml-3 flex flex-column">
@@ -33,6 +33,11 @@ export default {
 			type : Object,
 			default : () => ({})
 		}
+	},
+	methods : {
+		handleToPath(){
+			this.hasLogin ? this.navTo("/pages/user-info/user-info") : this.navTo("/pages/login/login")
+		}
 	}
 }
 </script>
@@ -40,12 +45,8 @@ export default {
 <style lang="scss">
 .user-info{
 	height : 120rpx;
-	padding: 53rpx 30rpx;
-	position: absolute;
-	top : 53rpx;
-	left :0;
-	right : 0;
-	
+	padding: 30rpx 0;
+
 	.left{
 		
 		.avatar{

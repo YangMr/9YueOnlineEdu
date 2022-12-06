@@ -1,5 +1,13 @@
 export default {
 	methods : {
+		// 返回
+		navBack(delta = 1){
+			uni.navigateBack({
+				delta
+			})
+		},
+		
+		// 跳转
 		navTo(path, options = {}){
 			// 如果没有输入要跳转的地址,则不继续往下执行
 			if(!path){

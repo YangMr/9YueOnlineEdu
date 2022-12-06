@@ -48,11 +48,12 @@
 
 <style lang="scss">
 .tab-container{
-	padding : 0 30rpx;
-	position: absolute;
-	top : 260rpx;
-	left: 0;
-	right:0;
+	padding : 30rpx 0;
+	// position: absolute;
+	// top : 260rpx;
+	// left: 0;
+	// right:0;
+	
 	
 	
 	.tab{
