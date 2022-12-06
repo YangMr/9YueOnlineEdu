@@ -1,10 +1,10 @@
 <template>
-	<form @submit="handleSubmit">
+	<view>
 		<block v-for="(item,index) in formList" :key="index">
 			<!-- 用户名 -->
-			<view v-if="item.type" class="login-form" >
+			<view v-if="item.type" class="login-form flex align-center" >
 				<uni-icons :type="item.icon"></uni-icons>
-				<input :name="item.props" :type="item.type" class="rounded font-md" :placeholder="item.placeholder" />
+				<input v-model="value[item.props]" :type="item.type" class="input w-100 rounded font-md" :placeholder="item.placeholder" />
 			</view>
 			
 			<!-- 验证码 -->
@@ -12,7 +12,7 @@
 				<view  class="login-form">
 					<!-- v-model -->
 					<uni-icons :type="item.icon"></uni-icons>
-					<input :name="item.props" :type="item.type" class="rounded font-md" :placeholder="item.placeholder" />
+					<input v-model="value[item.props]"  :type="item.type" class="rounded font-md" :placeholder="item.placeholder" />
 				</view>
 			</view>
 		</block>
@@ -20,14 +20,14 @@
 		
 		<!-- 按钮 -->
 		<button class="bg-main btn font"  hover-class="bg-main-hover" form-type="submit">{{buttonText}}</button>
-	</form>
+	</view>
 </template>
 
 <script>
 	export default {
 		name:"i-user-form",
 		props : {
-			form : {
+			value : {
 				type : Object,
 				default : () => ({})
 			},
@@ -61,9 +61,7 @@
 			};
 		},
 		methods : {
-			handleSubmit(e){
-				this.$emit("input", e.detail.value)
-			}
+			
 		}
 	}
 </script>
@@ -72,11 +70,10 @@
 .login-form{
 	position: relative;
 	margin-bottom: 50rpx;
+	background-color: #f5f5f5;
+	height: 100rpx;
 }
 .login-form .uni-icons{
-	position: absolute;
-	left: 0;
-	top: 0;
 	width: 100rpx;
 	height: 100rpx;
 	display: flex;
@@ -84,11 +81,11 @@
 	justify-content: center;
 	color: #272727;
 }
-.login-form input{
-	height: 100rpx;
-	padding-left: 100rpx;
-	padding-right: 20rpx;
-	background-color: #f5f5f5;
+.login-form .input{
+	height: 100% !important;
+	border: none;
+	background: transparent;
+	outline: none;
 }
 
 .btn{

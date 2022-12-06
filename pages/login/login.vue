@@ -16,7 +16,11 @@
 			</view>
 
 			<!-- 登录/注册表单 -->
-			<i-user-form @input="handleSubmit" :buttonText="type === 'login' ? '登 录' : '注 册'" :form="form" :formList="formList"></i-user-form>
+			<i-user-form 
+			 :buttonText="type === 'login' ? '登 录' : '注 册'" 
+			 v-model="form" 
+			 :formList="formList">
+			 </i-user-form>
 
 			<!-- 注册账号/忘记密码 -->
 			<view class="flex align-center justify-between my-3 font">
@@ -80,25 +84,18 @@
 		methods: {
 			handleToggle() {
 				this.type = this.type === 'login' ? 'reg' : 'login'
-				
+				this.form.repassword = ""
+				this.form.username = ""
+				this.form.password = ""
 				if(this.type === 'reg'){
 					console.log("12")
-					this.form.repassword = ""
-					this.form.username = ""
-					this.form.password = ""
+					
 					this.formList.push({
 						type : 'password',
 						props : 'repassword',
 						placeholder : '请输入确认密码',
 						icon : 'locked'
-					},
-					{
-						type : 'input',
-						props : 'code',
-						placeholder : '验证码',
-						icon : 'locked'
-					}
-					)
+					})
 				}else{
 					delete this.form.repassword
 					this.formList.pop()
