@@ -3,8 +3,13 @@ import App from './App'
 // #ifndef VUE3
 import Vue from 'vue'
 
+// 混入的全局注册
 import mixins from "@/common/mixins/index.js"
 Vue.mixin(mixins)
+
+// 消息提示框全局注册
+import utils from "@/common/js/utils.js"
+Vue.prototype.$utils = utils
 
 Vue.config.productionTip = false
 App.mpType = 'app'

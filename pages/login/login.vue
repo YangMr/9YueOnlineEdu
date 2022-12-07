@@ -16,11 +16,8 @@
 			</view>
 
 			<!-- 登录/注册表单 -->
-			<i-user-form 
-			 :buttonText="type === 'login' ? '登 录' : '注 册'" 
-			 v-model="form" 
-			 :formList="formList">
-			 </i-user-form>
+			<i-form @submit="handleSubmit" v-model="form" :text="type === 'login' ? '登录' : '注册'" :formList="formList">
+			</i-form>
 
 			<!-- 注册账号/忘记密码 -->
 			<view class="flex align-center justify-between my-3 font">
@@ -38,9 +35,11 @@
 
 
 			<!-- 用户协议 -->
-			<checkbox-group @change="handleCheckboxChange" v-if="type === 'login'" class="flex align-center justify-center mt-4">
+			<checkbox-group @change="handleCheckboxChange" v-if="type === 'login'"
+				class="flex align-center justify-center mt-4">
 				<label class="text-light-muted">
-					<checkbox  value="1"  color="#7fd49e" style="transform: scale(0.7); position: relative; top :-2rpx;" />
+					<checkbox value="1" color="#7fd49e"
+						style="transform: scale(0.7); position: relative; top :-2rpx;" />
 					<text class="font">已阅读并同意用户协议&隐私声明</text>
 				</label>
 			</checkbox-group>
@@ -52,31 +51,31 @@
 </template>
 
 <script>
+	import userApi from "@/api/user.js"
 	export default {
 		data() {
 			return {
 				// 登录注册切换的状态
 				type: 'login',
 				//是否同意用户隐私协议状态 false 未同意 true 已同意
-				checked : false,
+				checked: false,
 				// 定义表单输入的数据
-				form : {
-					username : '',
-					password : ''
+				form: {
+					username: '',
+					password: ''
 				},
 				// 表单列表数据
-				formList : [
-					{
-						type : 'input',
-						props : 'username',
-						placeholder : '请输入用户名',
-						icon : 'person'
+				formList: [{
+						type: 'input',
+						placeholder: '请输入用户名',
+						props: 'username',
+						icon: 'person'
 					},
 					{
-						type : 'password',
-						props : 'password',
-						placeholder : '请输入密码',
-						icon : 'locked'
+						type: 'password',
+						placeholder: '请输入密码',
+						props: 'password',
+						icon: 'locked'
 					}
 				]
 			}
@@ -84,29 +83,66 @@
 		methods: {
 			handleToggle() {
 				this.type = this.type === 'login' ? 'reg' : 'login'
-				this.form.repassword = ""
-				this.form.username = ""
-				this.form.password = ""
-				if(this.type === 'reg'){
-					console.log("12")
-					
-					this.formList.push({
-						type : 'password',
-						props : 'repassword',
-						placeholder : '请输入确认密码',
-						icon : 'locked'
-					})
-				}else{
-					delete this.form.repassword
-					this.formList.pop()
-				}
+				this.type === 'login' ? this.handleAddForm() : this.handleRemoveForm()
+
 			},
-			handleCheckboxChange(e){
+			handleAddForm() {
+				delete this.form.repassword
+				this.formList.pop()
+				this.$utils.resetForm(this.form)
+			},
+			handleRemoveForm() {
+				this.form.repassword = ""
+				this.$utils.resetForm(this.form)
+				
+				this.formList.push({
+					type: 'password',
+					placeholder: '请输入确认密码',
+					props: 'repassword',
+					icon: 'locked'
+				})
+			},
+			handleCheckboxChange(e) {
 				// this.checked = e.detail.value.length ? true : false
 				this.checked = !!e.detail.value.length
 			},
-			handleSubmit(){
-				console.log(this.form)
+			handleSubmit() {
+				// 判断是否勾选用户协议
+				if (!this.checked && this.type === 'login') {
+					this.$utils.toast('请先阅读并同意用户协议&隐私声明')
+					return
+				}
+
+				// 判断用户名是否为空
+				if (!this.form.username) {
+					this.$utils.toast('用户名不能为空')
+					return
+				}
+				// 判断密码是否为空
+				if (!this.form.password) {
+					this.$utils.toast('密码不能为空')
+					return
+				}
+
+				this.type === 'login' ? this.handleLogin() : this.handleRegister()
+			},
+			handleLogin() {
+				alert("login")
+			},
+			async handleRegister() {
+				try{
+					uni.showLoading({title: "注册中...",mask : false})
+
+					const response = await userApi.register(this.form)
+					this.$utils.toast("注册成功")
+					this.handleToggle()
+				}catch(e){
+					//TODO handle the exception
+					console.log("error=>", e)
+				}finally{
+					uni.hideLoading()
+				}
+
 			}
 		}
 	}
