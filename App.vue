@@ -2,6 +2,7 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+			this.$store.commit("initData")
 		},
 		onShow: function() {
 			console.log('App Show')

@@ -1,6 +1,6 @@
 import config from "@/config/config.js"
 import utils from "@/common/js/utils.js"
-
+import store from "@/store/index.js"
 const Http = {
 	
 	// 请求配置
@@ -16,6 +16,7 @@ const Http = {
 				options.method = options.method || 'GET'
 				options.header = {
 					appid : this.appid,
+					token : store.state.token || ""
 				}
 				
 				resolve(options)
@@ -26,35 +27,35 @@ const Http = {
 			return new Promise((resolve,reject)=>{
 				
 				const response = data[1]
-				console.log("response=>", response)
+
 				// 请求失败
-				this.showErrorMessage(response)
+				if(response.statusCode !== 200 || response.data.msg === 'fail'){
+					const msg = response.data.data || '请求失败'
+					utils.toast(msg)
+					
+					// TOKEN 过期处理
+					if(response.data.data == 'Token 令牌不合法，请重新登录' || response.data.data == '您没有权限访问该接口!'){
+						// 退出登录
+						// store.dispatch('logout')
+						
+						// 跳转到登陆页
+						setTimeout(()=>{
+							uni.navigateTo({
+								url: '/pages/login/login',
+							});
+						},500)
+					}
+					
+					return reject(msg)
+				}
 				
 				// 请求成功
 				resolve(response.data.data)
 			})
 		},
 		// 错误消息提示
-		showErrorMessage(response){
-			if(response.statusCode !== 200 || response.data.msg === 'fail'){
-				const msg = response.data.data || '请求失败'
-				utils.toast(msg)
-				
-				// TOKEN 过期处理
-				if(response.data.data == 'Token 令牌不合法，请重新登录' || res.data.data == '您没有权限访问该接口!'){
-					// 退出登录
-					// store.dispatch('logout')
-					
-					// 跳转到登陆页
-					setTimeout(()=>{
-						uni.navigateTo({
-							url: '/pages/login/login',
-						});
-					},500)
-				}
-				
-				return reject(msg)
-			}
+		showErrorMessage(response,reject){
+			
 		}
 	},
 	

@@ -126,13 +126,43 @@
 
 				this.type === 'login' ? this.handleLogin() : this.handleRegister()
 			},
-			handleLogin() {
-				alert("login")
+			async handleLogin() {
+				try{
+					// 开启loading
+					uni.showLoading({
+						title : '登录中',
+						mask : false
+					})
+					
+					// 发送请求
+					const response = await userApi.login(this.form)
+					
+					// 将登录之后返回的token以及用户信息寻出到vuex
+					this.$store.commit("setToken", response.token)
+					this.$store.commit("setUserInfo", response)
+					
+					console.log("response=>", response)
+					
+					// 判断登录之后的用户信息里面有没有绑定手机号, 绑定: 进入个人中心 没绑定: 绑定手机号页面
+					if(!response.phone){
+						this.navTo("/pages/bind-phone/bind-phone")
+						return 
+					}
+					
+					// 绑定手机号了,则跳转到个人中心
+					// this.navBack()
+					this.navTo("/pages/tabbar/my/my", {navigator : 'switchTab'})
+			
+				}catch(e){
+					//TODO handle the exception
+					console.log("error=>", e)
+				}finally{
+					uni.hideLoading()
+				}
 			},
 			async handleRegister() {
 				try{
 					uni.showLoading({title: "注册中...",mask : false})
-
 					const response = await userApi.register(this.form)
 					this.$utils.toast("注册成功")
 					this.handleToggle()
@@ -149,48 +179,5 @@
 </script>
 
 <style lang="scss">
-	.login-bg {
-		height: 220rpx;
-		background-image: linear-gradient(120deg, #3BFDAF 0%, #70D6F2 100%);
-	}
 
-	.login-back {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100rpx;
-		height: 100rpx;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 100;
-		top: var(--status-bar-height);
-	}
-
-	.login-container {
-		position: absolute;
-		top: 200rpx;
-		left: 0;
-		right: 0;
-		background-color: #FFFFFF;
-		border-top-left-radius: 30rpx;
-		border-top-right-radius: 30rpx;
-		padding: 60rpx 70rpx 0 70rpx;
-
-		.title {
-			font-size: 22px;
-			margin-bottom: 50rpx;
-			color: #35404b;
-		}
-
-		.login-wechat .uni-icons {
-			border: 1rpx solid #5ccc84;
-			width: 47px;
-			border-radius: 100%;
-			height: 47px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-	}
 </style>

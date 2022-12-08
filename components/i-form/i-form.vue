@@ -1,9 +1,20 @@
 <template>
 	<view>
-		<view v-for="(item,index) in formList" :key="index" class="form-group flex align-center">
-			<uni-icons :type="item.icon" size="18"></uni-icons>
-			<input class="input" v-model.trim="value[item.props]" :type="item.type"  :placeholder="item.placeholder" />
-		</view>
+		<block v-for="(item,index) in formList" :key="index">
+			<view v-if="item.type === 'input' || item.type === 'password'" class="form-group flex align-center">
+				<uni-icons :type="item.icon" size="18"></uni-icons>
+				<input class="input" v-model.trim="value[item.props]" :type="item.type"  :placeholder="item.placeholder" />
+			</view>
+			
+			<view v-if="item.type === 'code'" class="form-group flex align-center">
+				<view class="flex align-center">
+					<uni-icons type="locked" size="18"></uni-icons>
+					<input v-model="value.code" class="input" placeholder="验证码"/>
+				</view>
+				<i-code :mobile="value.phone"></i-code>
+			</view>
+			
+		</block>
 		
 		<view class="bg-main btn" hover-class="bg-main-hover" @click="handleSubmit">{{text}}</view>
 	</view>

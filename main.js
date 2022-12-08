@@ -11,9 +11,13 @@ Vue.mixin(mixins)
 import utils from "@/common/js/utils.js"
 Vue.prototype.$utils = utils
 
+// 引入vuex
+import store from "@/store/index.js"
+
 Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({
+	store,
     ...App
 })
 app.$mount()
