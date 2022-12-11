@@ -9,7 +9,7 @@
 			<view v-if="item.type === 'code'" class="form-group flex align-center">
 				<view class="flex align-center">
 					<uni-icons type="locked" size="18"></uni-icons>
-					<input v-model="value.code" class="input" placeholder="验证码"/>
+					<input v-model.trim="value.code" class="input" placeholder="验证码"/>
 				</view>
 				<i-code :mobile="value.phone"></i-code>
 			</view>
@@ -77,12 +77,5 @@
 	}
 }
 
-.btn{
-	height: 100rpx;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #FFFFFF;
-	border-radius: 10rpx;
-}
+
 </style>

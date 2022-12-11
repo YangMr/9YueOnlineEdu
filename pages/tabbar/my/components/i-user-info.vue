@@ -4,7 +4,7 @@
 			<image class="avatar" src="/static/demo/icon/test.png" mode=""></image>
 			<view class="ml-3 flex flex-column">
 				<view v-if="hasLogin" class="flex align-center">
-					<text class="text-white font-md mb-1">就余韵教育</text>
+					<text class="text-white font-md mb-1">{{userInfo.username || userInfo.nickname || ""}}</text>
 					<text class="ml-3 font-sm" style="color:#fec107;">永久会员</text>
 				</view>
 				

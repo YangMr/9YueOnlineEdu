@@ -41,7 +41,15 @@ const store = new Vuex.Store({
 		}
 	},
 	actions : {
-		
+		logout({state}){
+			// 清空vuex token
+			state.token = ""
+			// 清空vuex userinfo
+			state.userInfo = {}
+			// 清除本地
+			uni.removeStorageSync("token")
+			uni.removeStorageSync("userInfo")
+		}
 	},
 	modules : {
 		

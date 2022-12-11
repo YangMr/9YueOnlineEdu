@@ -7,11 +7,27 @@ const toast = (title = '', icon = 'none', duration = 2000) => {
 	});
 }
 
+// 模态弹窗
+const modal = (title = "",content = "" ) => {
+	return new Promise((resolve,reject)=>{
+		uni.showModal({
+			title,
+			content,
+			success: function(res) {
+				if (res.confirm) {
+					resolve(true)
+				}
+			}
+		});
+	})
+	
+}
+
 // l开启oading加载
 const openLoading = (title = "加载中...", mask = false) => {
 	uni.showLoading({
 		title,
-		mask 
+		mask
 	})
 }
 
@@ -22,7 +38,7 @@ const hideLoading = () => {
 
 // 设置对象里面所有属性的值为空
 const resetForm = (form) => {
-	Object.keys(form).forEach(item=>{
+	Object.keys(form).forEach(item => {
 		form[item] = ""
 	})
 }
@@ -57,7 +73,8 @@ const checkStr = (str, type) => {
 		case 'IP': //IP
 			return /((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d))/.test(str);
 		case 'date': //日期时间
-			return /^(\d{4})\-(\d{2})\-(\d{2}) (\d{2})(?:\:\d{2}|:(\d{2}):(\d{2}))$/.test(str) || /^(\d{4})\-(\d{2})\-(\d{2})$/
+			return /^(\d{4})\-(\d{2})\-(\d{2}) (\d{2})(?:\:\d{2}|:(\d{2}):(\d{2}))$/.test(str) ||
+				/^(\d{4})\-(\d{2})\-(\d{2})$/
 				.test(str)
 		case 'number': //数字
 			return /^[0-9]$/.test(str);
@@ -81,8 +98,6 @@ export default {
 	resetForm,
 	openLoading,
 	hideLoading,
-	checkStr
+	checkStr,
+	modal
 }
-
-
-

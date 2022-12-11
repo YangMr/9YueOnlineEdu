@@ -5,7 +5,7 @@
 		
 		<view class="my-container">
 			<!-- 用户信息 -->
-			<i-user-info></i-user-info>
+			<i-user-info :hasLogin="hasLogin" :userInfo="userInfo"></i-user-info>
 			
 			<!-- tab -->
 			<i-card-tab></i-card-tab>
@@ -25,11 +25,18 @@
 
 <script>
 	import iUserInfo from "./components/i-user-info.vue"
-	export default {
+	import {mapGetters} from "vuex"
+ 	export default {
 		data() {
 			return {
 				
 			}
+		},
+		computed : {
+			...mapGetters([
+				"hasLogin",
+				"userInfo"
+			])
 		},
 		// 点击右上角菜单按钮触发的方法
 		onNavigationBarButtonTap() {

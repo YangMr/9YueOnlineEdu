@@ -78,7 +78,8 @@
             "path" : "pages/setting/setting",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "我的设置",
+				"navigationBarBackgroundColor": "#fff",
                 "enablePullDownRefresh": false
             }
             
@@ -97,7 +98,10 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": false
+				}
             }
             
         }
@@ -110,6 +114,15 @@
 				"app-plus" : {
 					"titleNView" : false
 				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/user-safe/user-safe",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
             }
             
         }

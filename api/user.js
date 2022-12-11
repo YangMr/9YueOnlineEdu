@@ -20,10 +20,22 @@ const bindPhone = (data) => {
 	return Http.request({url : '/mobile/bind_mobile', method : 'POST', data})
 }
 
+// 找回密码
+const forgetPassword = (data) => {
+	return Http.request({url : '/mobile/forget', method : 'POST', data})
+}
+
+// 退出登录
+const logout = () => {
+	return Http.request({url : '/mobile/logout', method : 'POST'})
+}
+
 // 导出所有接口
 export default {
 	register,
 	login,
 	sendSmsCode,
-	bindPhone
+	bindPhone,
+	forgetPassword,
+	logout
 }
