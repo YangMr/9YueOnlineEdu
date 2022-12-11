@@ -11,7 +11,7 @@
 			<i-card-tab></i-card-tab>
 			
 			<!-- 选项列表 -->
-			<i-list></i-list>
+			<i-list border></i-list>
 		</view>
 		
 		

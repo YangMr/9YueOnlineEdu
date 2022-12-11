@@ -32,7 +32,10 @@
 			async handleClearStorage(){
 				try{
 					const res = await this.$utils.modal("","是否清除缓存?")
-					console.log("Res=>", res)
+					uni.clearStorageSync()
+					this.$utils.toast('清除成功')
+					await this.$store.dispatch("logout")
+					this.settingList = settingList()
 				}catch(e){
 					//TODO handle the exception
 					console.log("error=>", e)

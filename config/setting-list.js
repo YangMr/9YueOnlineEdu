@@ -20,7 +20,7 @@ export default () => {
 			// 右侧的箭头
 			// showArrow : true, 
 			// 右侧文本
-			text : '2.00 KB',
+			text : uni.getStorageInfoSync().currentSize < 1024 ? uni.getStorageInfoSync().currentSize + "KB" : (uni.getStorageInfoSync().currentSize / 1024).tofixed(2) + 'MB' ,
 			// 绑定的事件
 			event : 'clear'
 		},

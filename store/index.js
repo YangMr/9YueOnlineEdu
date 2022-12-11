@@ -24,6 +24,7 @@ const store = new Vuex.Store({
 		initData(state){
 			const token = uni.getStorageSync("token")
 			const userInfo = uni.getStorageSync("userInfo")
+			
 			if(token && userInfo){
 				state.token = token
 				state.userInfo = userInfo

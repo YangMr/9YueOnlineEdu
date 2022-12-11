@@ -30,7 +30,7 @@ export default {
 		},
 		// 用户信息
 		userInfo : {
-			type : Object,
+			type : [Object,String],
 			default : () => ({})
 		}
 	},

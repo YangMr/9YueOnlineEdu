@@ -30,6 +30,11 @@ const logout = () => {
 	return Http.request({url : '/mobile/logout', method : 'POST'})
 }
 
+// 修改密码接口
+const changePassword = (data) => {
+	return Http.request({url : '/mobile/update_password', method :'POST', data})
+}
+
 // 导出所有接口
 export default {
 	register,
@@ -37,5 +42,6 @@ export default {
 	sendSmsCode,
 	bindPhone,
 	forgetPassword,
-	logout
+	logout,
+	changePassword
 }

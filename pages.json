@@ -88,7 +88,8 @@
             "path" : "pages/user-info/user-info",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "编辑资料",
+				"navigationBarBackgroundColor": "#fff",
                 "enablePullDownRefresh": false
             }
             
@@ -121,7 +122,8 @@
             "path" : "pages/user-safe/user-safe",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "修改密码",
+				"navigationBarBackgroundColor": "#fff",
                 "enablePullDownRefresh": false
             }
             
