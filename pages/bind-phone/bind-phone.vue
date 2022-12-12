@@ -63,6 +63,8 @@
 					const response = await userApi.bindPhone(this.form)
 					console.log("response=>", response)
 
+					this.$store.dispatch("updateUserInfo", {phone : this.form.phone})
+
 					// 提示绑定成功
 					this.$utils.toast('绑定成功')
 
@@ -71,6 +73,7 @@
 						this.navTo('/pages/tabbar/my/my', {
 							navigator: 'switchTab'
 						})
+						// this.navBack()
 					},3000)
 					
 				} catch (e) {

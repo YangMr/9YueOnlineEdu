@@ -30,9 +30,19 @@ const logout = () => {
 	return Http.request({url : '/mobile/logout', method : 'POST'})
 }
 
-// 修改密码接口
+// 修改密码
 const changePassword = (data) => {
 	return Http.request({url : '/mobile/update_password', method :'POST', data})
+}
+
+// 修改资料
+const updateProfile = (data) => {
+	return Http.request({url : '/mobile/update_info', method : 'POST', data})
+}
+
+// 上传图片
+const upload = (filePath) => {
+	return Http.upload('/mobile/upload',{filePath})
 }
 
 // 导出所有接口
@@ -43,5 +53,7 @@ export default {
 	bindPhone,
 	forgetPassword,
 	logout,
-	changePassword
+	changePassword,
+	updateProfile,
+	upload
 }

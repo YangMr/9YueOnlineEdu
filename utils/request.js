@@ -73,7 +73,32 @@ const Http = {
 	},
 	
 	// 文件上传请求
-	upload(){
+	async upload(url, data = {}, options = {}){
+		options.url = url
+		
+		try{
+			const opt = await this.config.beforRequest(options)
+			const res = await uni.uploadFile({
+				url : opt.url,
+				filePath: data.filePath,
+				name: data.name || 'files',
+				header:opt.header,
+			})
+			console.log("res=>", res[1].statusCode)
+			
+			if(res[1].statusCode != 200){
+				// reject('上传失败')
+				return uni.showToast({
+					title: '上传失败',
+					icon: 'none'
+				});
+			}
+			let message = JSON.parse(res[1].data)
+			return message
+		}catch(e){
+			//TODO handle the exception
+			console.log("error=>", e)
+		}
 		
 	}
 }

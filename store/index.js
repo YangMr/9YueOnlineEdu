@@ -42,6 +42,7 @@ const store = new Vuex.Store({
 		}
 	},
 	actions : {
+		// 退出登录
 		logout({state}){
 			// 清空vuex token
 			state.token = ""
@@ -50,6 +51,16 @@ const store = new Vuex.Store({
 			// 清除本地
 			uni.removeStorageSync("token")
 			uni.removeStorageSync("userInfo")
+		},
+		
+		// 更新用户信息
+		updateUserInfo({state}, info){
+			Object.keys(info).forEach(item => state.userInfo[item] = info[item])
+			// state.userInfo.avatar = info.avatar
+			// state.userInfo.nickname = info.nickname
+			// state.userInfo.sex = info.sex
+			
+			uni.setStorageSync("userInfo",state.userInfo)
 		}
 	},
 	modules : {
