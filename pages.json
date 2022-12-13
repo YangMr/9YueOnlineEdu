@@ -3,7 +3,10 @@
 		{
 			"path": "pages/tabbar/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "",
+				"app-plus": {
+					"titleNView": false
+				}
 			}
 		}
 	    ,{
@@ -125,6 +128,54 @@
                 "navigationBarTitleText": "修改密码",
 				"navigationBarBackgroundColor": "#fff",
                 "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": {
+						"searchInput": {
+							"align": "left",
+							"placeholder": "输入搜索关键词",
+							"backgroundColor": "#F6F9FB",
+							"borderRadius": "50px",
+							"autoFocus": true
+						},
+						"buttons": [
+							{
+								"text": "搜索",
+								"fontSize":"15px"
+							}
+						]
+					}
+				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/search-result/search-result",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": {
+						"searchInput": {
+							"align": "left",
+							"placeholder": "输入搜索关键词",
+							"backgroundColor": "#F6F9FB",
+							"borderRadius": "50px",
+							"disabled": true
+						}
+					}
+				}
             }
             
         }
