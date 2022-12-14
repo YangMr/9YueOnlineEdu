@@ -6,8 +6,9 @@
 		<!-- 搜索结果列表 -->
 		<swiper class="flex-1 flex flex-column"  @change="handleChange" :current="current" :duration="200">
 			<swiper-item class="flex" v-for="(item,index) in tabs" :key="index">
-				<scroll-view class="flex-1" scroll-y="true" >
+				<scroll-view @scrolltolower="handleLoadMore(item)" class="flex-1" scroll-y="true" >
 					<i-course-list :item="m" v-for="(m,n) in item.list" :key="n"></i-course-list>
+					<uni-load-more :status="item.loadMore"></uni-load-more>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+	import searchApi from "@/api/search.js"
 	export default {
 		data() {
 			return {
@@ -23,60 +25,67 @@
 				tabs : [
 					{
 						title : '课程',
-						list : [
-							{
-							  "id": 6,
-							  "title": "VueCli 实战在线教育后台系统",
-							  "cover": "http://demo-mp3.oss-cn-shenzhen.aliyuncs.com/egg-edu-demo/10ccf3a973f5193bec3c.png",
-							  "price": "9.98",
-							  "t_price": "9.98",
-							  "type": "media"
-							},
-							{
-							  "id": 7,
-							  "title": "uni-app实战视频点播app小程序",
-							  "cover": "http://demo-mp3.oss-cn-shenzhen.aliyuncs.com/egg-edu-demo/47d1aa930177515cd95e.png",
-							  "price": "9.98",
-							  "t_price": "9.98",
-							  "type": "media"
-							},
-							{
-							  "id": 11,
-							  "title": "uni-app实战直播app全栈开发",
-							  "cover": "http://demo-mp3.oss-cn-shenzhen.aliyuncs.com/egg-edu-demo/c948f4a7e402473337cb.png",
-							  "price": "90.00",
-							  "t_price": "90.00",
-							  "type": "video"
-							}
-						]
+						type : 'course',
+						page : 1,
+						list : [],
+						loadMore : "more"
 					},
 					{
 						title : '专栏',
-						list : [
-							{
-							  "id": 11,
-							  "title": "uni-app实战直播app全栈开发",
-							  "cover": "http://demo-mp3.oss-cn-shenzhen.aliyuncs.com/egg-edu-demo/c948f4a7e402473337cb.png",
-							  "price": "90.00",
-							  "t_price": "90.00",
-							  "type": "video"
-							}
-						]
+						type : 'column',
+						page : 1,
+						list : [],
+						loadMore : "more"
 					}
-				]
+				],
+				keyword : ""
 			}
 		},
 		onNavigationBarSearchInputClicked() {
 			this.navBack()
 		},
+		onLoad(e) {
+			console.log("e=>", e)
+			this.keyword = e.keyword
+			this.initLoad()
+		},
 		methods: {
+			async initLoad(){
+				try{
+					const tab = this.tabs[this.current]
+					const response = await searchApi.search({
+						keyword : this.keyword,
+						type : tab.type,
+						page : tab.page,
+					})
+					
+					tab.list = tab.page === 1 ? response.rows : [...tab.list, ...response.rows]
+					tab.loadMore = response.rows.length < 10 ? 'noMore' : 'more'
+
+				}catch(e){
+					tab.loadStatus = 'more'
+					if(tab.page > 1){
+						tab.page = tab.page - 1
+					}
+					//TODO handle the exception
+					console.log("error=>", e)
+				}
+			},
 			handleTab(index){
-				console.log("index=>", index)
 				this.current = index
 			},
 			handleChange(e){
-				console.log("e=>", e)
 				this.current = e.detail.current
+				const tab = this.tabs[this.current]
+				if(tab.loadMore === "more" && tab.page === 1){
+					this.initLoad()
+				}
+			},
+			// 上拉加载
+			handleLoadMore(item){
+				if(item.loadMore !== 'more') return
+				item.page = item.page + 1
+				this.initLoad()
 			}
 		}
 	}
