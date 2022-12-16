@@ -51,6 +51,8 @@ const store = new Vuex.Store({
 			// 清除本地
 			uni.removeStorageSync("token")
 			uni.removeStorageSync("userInfo")
+			
+			uni.$emit("userLogout")
 		},
 		
 		// 更新用户信息

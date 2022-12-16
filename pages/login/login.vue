@@ -143,6 +143,8 @@
 					
 					console.log("response=>", response)
 					
+					uni.$emit("userLogin")
+					
 					// 判断登录之后的用户信息里面有没有绑定手机号, 绑定: 进入个人中心 没绑定: 绑定手机号页面
 					if(!response.phone){
 						this.navTo("/pages/bind-phone/bind-phone")
