@@ -13,6 +13,43 @@
 			
 			<!-- 优惠卷模块 -->
 			<i-coupon v-if="item.type === 'coupon'" :list="couponList"></i-coupon>
+			
+			<!-- 拼团模块 -->
+			<view v-if="item.type === 'promotion'">
+				<view class="divider"></view>
+				
+				<view class="flex px-2 py-3">
+					<text class="font-md font-weight-bold">拼团</text>
+				</view>
+				<view>
+					<scroll-view class="scroll-row" scroll-x="true" >
+						<!-- <i-course-list v-for="(course,i) in courseList" :key="i" :item="course"></i-course-list> -->
+					</scroll-view>
+				</view>
+			</view>
+			
+			
+			<!-- 最新列表 -->
+			<view v-if="item.type === 'list'">
+				<view class="divider"></view>
+				
+				<view class="flex px-2 align-center justify-between py-3">
+					<text class="font-md font-weight-bold">{{item.title}}</text>
+					<text v-if="item.more" class="font-sm text-light-muted">查看更多</text>
+				</view>
+				<view>
+					<scroll-view class="scroll-row" scroll-x="true" >
+						<i-course-list :type="item.listType" v-for="(course,i) in item.data" :key="i" :item="course"></i-course-list>
+					</scroll-view>
+				</view>
+			</view>
+			
+			<!-- 广告模块 -->
+			<view v-if="item.type === 'imageAd'" >
+				<view class="divider"></view>
+				<image style="height:360rpx; width:100%;" :src="item.data" mode=""></image>
+			</view>
+			
 		</block>
 		
 	</view>

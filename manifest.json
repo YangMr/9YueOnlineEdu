@@ -46,6 +46,19 @@
             "sdkConfigs" : {}
         }
     },
+	"h5": {
+		"devServer": {
+			"proxy" : {
+				"/dev-api" :{
+					"target" : "http://eduapi.2yuecloud.com",
+					"changeOrigin" : true,
+					"pathRewrite" : {
+						"^/dev-api" : ""
+					}
+				}
+			}
+		}
+	},
     /* 快应用特有相关 */
     "quickapp" : {},
     /* 小程序特有相关 */

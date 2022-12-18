@@ -2,7 +2,9 @@
 
 		<swiper class="banner" circular :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 			<swiper-item @click="handleToWebView(item)" class="flex align-center justify-center" v-for="(item,index) in list" :key="index">
-				<image class="img shadow rounded" :src="item.src" mode="aspectFill" ></image>
+				<!-- {{item}} -->
+				<image class="img shadow rounded" src="https://edu-image.nosdn.127.net/96bd39ce1d334b8493bac12bb1aa4223.png" mode="aspectFill" ></image>
+				<!-- <img class="img shadow rounded" src="https://edu-image.nosdn.127.net/96bd39ce1d334b8493bac12bb1aa4223.png" /> -->
 			</swiper-item>
 		</swiper>
 	
