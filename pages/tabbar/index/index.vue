@@ -83,16 +83,13 @@
 			this.init()
 		},
 		methods: {
-			
 			async init(){
-				
 				this.initLoad()
 				this.loadConponList()
-				
 				uni.$on("userLogout", this.loadConponList)
 				uni.$on("userLogin", this.loadConponList)
 			},
-			
+
 			// 点击搜索框触发的方法
 			handleSearch() {
 				this.navTo("/pages/search/search")

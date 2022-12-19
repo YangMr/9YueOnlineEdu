@@ -46,19 +46,21 @@
             "sdkConfigs" : {}
         }
     },
-	"h5": {
-		"devServer": {
-			"proxy" : {
-				"/dev-api" :{
-					"target" : "http://eduapi.2yuecloud.com",
-					"changeOrigin" : true,
-					"pathRewrite" : {
-						"^/dev-api" : ""
-					}
-				}
-			}
-		}
-	},
+    "h5" : {
+        "devServer" : {
+            "proxy" : {
+                "/dev-api" : {
+                    // "target" : "http://eduapi.2yuecloud.com",
+                    "target" : "http://demonuxtapi.dishait.cn",
+                    "changeOrigin" : true,
+                    "pathRewrite" : {
+                        "^/dev-api" : ""
+                    }
+                }
+            }
+        },
+        "template" : ""
+    },
     /* 快应用特有相关 */
     "quickapp" : {},
     /* 小程序特有相关 */

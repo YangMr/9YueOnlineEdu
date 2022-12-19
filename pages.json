@@ -193,7 +193,7 @@
             "path" : "pages/course/course",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#fff",
                 "enablePullDownRefresh": false
             }
             

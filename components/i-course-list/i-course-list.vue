@@ -1,5 +1,5 @@
 <template>
-	<view class="scroll-row-item course" :class="'course-' + type">
+	<view class="scroll-row-item course" :class="'course-' + type" @click="handleToDetailPage">
 		<view class="position-relative">
 			<image :src="item.cover" mode=""></image>
 			<view class="text-white font-sm position-absolute">{{item.type|formatType}}</view>
@@ -44,6 +44,11 @@
 			return {
 				
 			};
+		},
+		methods : {
+			handleToDetailPage(){
+				this.navTo("/pages/course/course?id=" + this.item.id)
+			}
 		}
 	}
 </script>

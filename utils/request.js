@@ -69,6 +69,10 @@ const Http = {
 		}catch(e){
 			//TODO handle the exception
 			console.log("error=>", e)
+			setTimeout(()=>{
+					uni.navigateBack({ delta: 1 });
+				},700)
+			
 		}
 	},
 	
