@@ -4,6 +4,7 @@
 			"path": "pages/tabbar/index/index",
 			"style": {
 				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true,
 				"app-plus": {
 					"titleNView": false
 				}
