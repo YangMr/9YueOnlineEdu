@@ -93,6 +93,8 @@ const checkStr = (str, type) => {
 	}
 }
 
+
+
 export default {
 	toast,
 	resetForm,

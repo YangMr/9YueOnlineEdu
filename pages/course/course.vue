@@ -9,7 +9,7 @@
 		</view>
 		
 		<!-- 音频播放器 -->
-		<i-audio v-else-if="detail.type === 'audio'" :poster='detail.cover'></i-audio>
+		<i-audio v-else-if="detail.type === 'audio'" :poster='detail.cover' src="http://music.163.com/song/media/outer/url?id=31877549.mp3"></i-audio>
 		
 		<!-- 视频播放 -->
 		<video v-else-if="detail.type === 'video'" :src="detail.content" :poster="detail.cover" controls  style="width: 100%; height:420rpx;"></video>
