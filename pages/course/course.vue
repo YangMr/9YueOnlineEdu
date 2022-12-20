@@ -8,6 +8,12 @@
 			</view>
 		</view>
 		
+		<!-- 音频播放器 -->
+		<i-audio v-else-if="detail.type === 'audio'" :poster='detail.cover'></i-audio>
+		
+		<!-- 视频播放 -->
+		<video v-else-if="detail.type === 'video'" :src="detail.content" :poster="detail.cover" controls  style="width: 100%; height:420rpx;"></video>
+		
 		<!-- 描述 -->
 		<view class="flex flex-column p-3">
 			<text class="mb-1" style="font-size:38rpx;">{{detail.title}}</text>
@@ -21,9 +27,11 @@
 		<view class="divider"></view>
 		
 		<!-- 简介 -->
-		<uni-card :title="detail.isbuy ? '课程内容' : '课程简介'" isFull >
-			<mp-html :content="detail.isbuy ? detail.content : detail.try" />
+		<uni-card :title="(detail.isbuy && detail.type === 'media') ? '课程内容' : '课程简介'" isFull >
+			<mp-html :content="(detail.isbuy && detail.type === 'media') ? detail.content : detail.try" />
 		</uni-card>
+		
+		<view style="height: 140rpx;"></view>
 		
 		<!-- 按钮订购 -->
 		<view v-if="!detail.isbuy" class="fixed-bottom p-2 bg-white border-top">
@@ -48,7 +56,6 @@
 					"sub_count":0,
 					"isbuy":false,
 					"isfava":false
-
 				}
 			}
 		},
