@@ -47,7 +47,18 @@
 		},
 		methods : {
 			handleToDetailPage(){
-				this.navTo("/pages/course/course?id=" + this.item.id)
+				
+				let url = "/pages/course/course?id=" + this.item.id
+				
+				// 当点击图文列表时,type的值如果不存在则跳转到专栏页面
+				// 否则,则跳转到course页面
+				if(!this.item.type){
+					url = "/pages/column/column?id=" +  this.item.id
+ 				}
+				
+				this.navTo(url)
+				
+				// this.navTo("/pages/course/course?id=" + this.item.id)
 			}
 		}
 	}
