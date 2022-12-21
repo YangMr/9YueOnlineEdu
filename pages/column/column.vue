@@ -40,7 +40,7 @@
 			</view>
 			
 			<!-- 专栏列表 -->
-			<i-menu-item v-for="(item,index) in columnList" :key="index" :index="index" :title="item.title">
+			<i-menu-item @click="handleOpenDetail(item)" v-for="(item,index) in columnList" :key="index" :index="index" :title="item.title">
 				<view class='flex'>
 					<text class="border border-danger text-danger rounded font-sm px-1 mt-1 mr-2">
 						{{item.type | formatType}}
@@ -109,6 +109,15 @@
 			this.initLoad()
 		},
 		methods: {
+			handleOpenDetail(item){
+				console.log("item=>", item)
+				if(item.price != 0 && !this.detail.isbuy){
+					this.$utils.toast("请先购买该专栏")
+					return
+				}
+				
+				this.navTo("/pages/course/course?id=" + item.id + "&column_id=" + this.detail.id, {isLogin : true})
+			},
 			// tab切换方法
 			handleTab(index){
 				this.current = index

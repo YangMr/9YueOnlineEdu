@@ -1,5 +1,5 @@
 <template>
-	<view hover-class="bg-light" class="flex p-3 align-center border-bottom" >
+	<view @click="$emit('click')" hover-class="bg-light" class="flex p-3 align-center border-bottom" >
 		<text class="text-muted" style="width:90rpx;">
 			{{(index + 1)|formatIndex}}
 		</text>

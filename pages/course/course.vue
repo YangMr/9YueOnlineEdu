@@ -56,7 +56,8 @@
 					"sub_count":0,
 					"isbuy":false,
 					"isfava":false
-				}
+				},
+				column_id : 0
 			}
 		},
 		filters : {
@@ -72,7 +73,7 @@
 		},
 		onLoad(e) {
 			this.detail.id = e.id
-			
+			this.column_id = e.column_id
 			
 			this.initLoad()
 		},
@@ -82,7 +83,7 @@
 					
 					const data = {
 						id : this.detail.id, 
-						column_id: null,
+						column_id: this.column_id || null,
 						group_id: null,
 						flashsale_id: null,
 					}

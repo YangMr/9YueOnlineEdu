@@ -14,7 +14,8 @@
             "path" : "pages/tabbar/study/study",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "学习进度",
+				"navigationBarBackgroundColor": "#fff",
                 "enablePullDownRefresh": false
             }
             
@@ -247,6 +248,33 @@
         }
         ,{
             "path" : "pages/column/column",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my-post/my-post",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my-test/my-test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my-book/my-book",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
