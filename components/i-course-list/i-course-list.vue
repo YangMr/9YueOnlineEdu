@@ -6,10 +6,14 @@
 		</view>
 		<view class="flex flex-column">
 			<text class="text-ellipsis font-md">{{item.title}}</text>
+			<slot name="desc"></slot>
 			<view class="flex flex-1 align-end">
-				<text class="font text-danger" v-if="item.price === 0">免费</text>
-				<text class="font text-danger" v-else-if="item.price > 0">￥{{item.price}}</text>
-				<text class="font-sm text-light-muted" v-if="item.t_price">￥{{item.t_price}}</text>
+				<slot>
+					<text class="font text-danger" v-if="item.price === 0">免费</text>
+					<text class="font text-danger" v-else-if="item.price > 0">￥{{item.price}}</text>
+					<text class="font-sm text-light-muted" v-if="item.t_price">￥{{item.t_price}}</text>
+				</slot>
+				
 			</view>
 		</view>
 	</view>

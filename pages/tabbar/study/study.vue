@@ -14,7 +14,13 @@
 				<swiper-item class="flex" v-for="(item,index) in tabs" :key="index">
 		
 					<scroll-view @scrolltolower="handleLoadMore(item)" class="flex-1" scroll-y="true">
-						<i-course-list type="one" :item="m" v-for="(m,n) in item.list" :key="n"></i-course-list>
+						<i-course-list type="one" :item="m" v-for="(m,n) in item.list" :key="n">
+							<view slot="desc" class="font-sm text-muted my-1">学习进度</view>
+							<view class="font-sm">
+								<text class="text-danger mr-1" v-if="n === 0">最近学习</text>
+								<text class="text-muted">已学习 {{m.progress}}%</text>
+							</view>
+						</i-course-list>
 						<uni-load-more :status="item.loadMore"></uni-load-more>
 					</scroll-view>
 				</swiper-item>
@@ -23,13 +29,6 @@
 			<!-- 用户在未登录的情况下显示no-login -->
 			<i-no-login v-if="!hasLogin"></i-no-login>
 		</view>
-		
-		
-
-	
-
-
-	
 </template>
 
 <script>
@@ -83,8 +82,14 @@
 				"hasLogin"
 			])
 		},
-		onLoad(e) {
-			this.initLoad()
+		onShow(e) {
+			if(this.hasLogin){
+				this.tabs.forEach((item)=>{
+					item.page = 1
+					item.loadMore = "more"
+				})
+				this.initLoad()
+			}
 		},
 		methods: {
 			async initLoad() {
