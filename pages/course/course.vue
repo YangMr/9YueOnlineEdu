@@ -9,10 +9,10 @@
 		</view>
 		
 		<!-- 音频播放器 -->
-		<i-audio v-else-if="detail.type === 'audio'" :poster='detail.cover' src="http://music.163.com/song/media/outer/url?id=31877549.mp3"></i-audio>
+		<i-audio @onProgress="handleAudioProgress" v-else-if="detail.type === 'audio'" :poster='detail.cover' src="http://music.163.com/song/media/outer/url?id=31877549.mp3"></i-audio>
 		
 		<!-- 视频播放 -->
-		<video v-else-if="detail.type === 'video'" :src="detail.content" :poster="detail.cover" controls  style="width: 100%; height:420rpx;"></video>
+		<video @timeupdate="handleVideoProgress" v-else-if="detail.type === 'video'" :src="detail.content" :poster="detail.cover" controls  style="width: 100%; height:420rpx;"></video>
 		
 		<!-- 描述 -->
 		<view class="flex flex-column p-3">
@@ -100,16 +100,41 @@
 			this.handleUpdateStudyProgress()
 		},
 		methods: {
+			// 音频的学习进度
+			handleAudioProgress(e){
+				console.log("e=>", e)
+				this.progress = e
+			},
+			// 视频的学习进度
+			handleVideoProgress(event){
+				console.log("event=>", event)
+				const {currentTime, duration} = event.detail
+				
+				if(duration > 0){
+					this.progress = ((currentTime / duration) * 100).toFixed(2)
+				}
+			},
 			// 将学习进度提交到后台
 			async handleUpdateStudyProgress(){
 				try{
-					const data = {
-						id : this.detail.id,
-						type : "course",
-						progress : this.progress
+					let data 
+					if(this.column_id === 0){
+						data = {
+							id : this.detail.id,
+							type : "course",
+							progress : this.progress
+						}
+					}else{
+						data = {
+							detail_id : this.detail.id,
+							id : this.column_id,
+							type : 'column'
+						}
 					}
+					
 					const response = await studyApi.setStudyUserHistory(data)
 					
+					uni.$emit("progress")
 				}catch(e){
 					//TODO handle the exception
 					console.log("error=>", e)

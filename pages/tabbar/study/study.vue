@@ -90,11 +90,19 @@
 				})
 				this.initLoad()
 			}
+			
+			uni.$on("progress", ()=>{
+				if(this.tabs[this.current].loadMore === 'more'){
+					this.initLoad()
+				}
+				
+			})
 		},
 		methods: {
 			async initLoad() {
 				try {
 					const tab = this.tabs[this.current]
+					tab.loadMore = "loading"
 					const response = await studyApi.getStudyHistoryList({
 						type: tab.type,
 						page: tab.page,
