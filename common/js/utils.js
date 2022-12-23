@@ -7,9 +7,17 @@ const toast = (title = '', icon = 'none', duration = 2000) => {
 	});
 }
 
+// 补零函数
+const addZero = (n) => {
+	if (n < 10) {
+		return "0" + n
+	}
+	return n
+}
+
 // 模态弹窗
-const modal = (title = "",content = "" ) => {
-	return new Promise((resolve,reject)=>{
+const modal = (title = "", content = "") => {
+	return new Promise((resolve, reject) => {
 		uni.showModal({
 			title,
 			content,
@@ -20,7 +28,7 @@ const modal = (title = "",content = "" ) => {
 			}
 		});
 	})
-	
+
 }
 
 // l开启oading加载
@@ -101,5 +109,6 @@ export default {
 	openLoading,
 	hideLoading,
 	checkStr,
-	modal
+	modal,
+	addZero
 }
