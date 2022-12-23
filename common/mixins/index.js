@@ -2,6 +2,7 @@ export default {
 	methods : {
 		// 返回
 		navBack(delta = 1){
+			console.log("back")
 			uni.navigateBack({
 				delta
 			})

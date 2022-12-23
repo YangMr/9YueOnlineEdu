@@ -283,6 +283,16 @@
             }
             
         }
+        ,{
+            "path" : "pages/test-detail/test-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "开始考试",
+                "navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
