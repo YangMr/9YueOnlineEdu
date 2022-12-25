@@ -1,21 +1,26 @@
 <template>
-	<view class="test-actions">
-		<view :class="current <= 1 ? 'text-light-muted' : ''" class="iconfont icon-shangyibu" hover-class="bg-light" @click="prev"></view>
-		<view hover-class="bg-light">
-			<view class="iconfont icon-leimupinleifenleileibie"></view>
-			<view class="flex justify-center align-center font-sm">
-				<text class="text-main">{{current}}</text>
-				<text>/{{total}}</text>
+	<view>
+		<view style="height : 100rpx;"></view>
+		<view class="test-actions">
+			
+			<view :class="current <= 1 ? 'text-light-muted' : ''" class="iconfont icon-shangyibu" hover-class="bg-light" @click="prev"></view>
+			<view hover-class="bg-light">
+				<view class="iconfont icon-leimupinleifenleileibie"></view>
+				<view class="flex justify-center align-center font-sm">
+					<text class="text-main">{{current}}</text>
+					<text>/{{total}}</text>
+				</view>
 			</view>
+			
+			<view hover-class="bg-light" @click="submit">
+				<view class="iconfont icon-tijiao"></view>
+				<text class="font-sm">交卷</text>
+			</view>
+			
+			<view :class="current >= total ? 'text-light-muted' : ''"  hover-class="bg-light" class="iconfont icon-xiayibu" @click="next"></view>
 		</view>
-		
-		<view hover-class="bg-light" @click="submit">
-			<view class="iconfont icon-tijiao"></view>
-			<text class="font-sm">交卷</text>
-		</view>
-		
-		<view :class="current >= total ? 'text-light-muted' : ''"  hover-class="bg-light" class="iconfont icon-xiayibu" @click="next"></view>
 	</view>
+	
 </template>
 
 <script>
@@ -67,6 +72,7 @@
 	bottom : 0;
 	height: 100rpx;
 	z-index: 9999;
+	background-color: #fff;
 	display: flex;
 	border-top:1rpx solid #ccc;
 }
