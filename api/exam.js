@@ -15,8 +15,14 @@ const endExam = (data = {}) => {
 	return Http.request({url : '/mobile/user_test/save', method : 'POST', data})
 }
 
+// 获取考试记录
+const getExamRecordList = (data = {}) => {
+	return Http.request({url : '/mobile/user_test/list', method : 'GET', data })
+}
+
 export default {
 	getExamList,
 	startExam,
-	endExam
+	endExam,
+	getExamRecordList
 }
