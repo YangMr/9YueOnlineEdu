@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 倒计时 -->
-		<i-timer-box @end="handleTestEnd" :expire="60"></i-timer-box>
+		<i-timer-box v-if="expire > 0" @end="handleTestEnd" :expire="expire"></i-timer-box>
 
 		<!-- 考试题 -->
 		<uni-card isFull :is-shadow="false" :title="q.type|formatType" :extra="`第${current}题`" note="Tips">
@@ -35,7 +35,7 @@
 		</uni-card>
 
 		<!-- 底部tab -->
-		<i-test-actions @submit="handleSubmit" @on-page="handlePage" :current="current" :total="total"></i-test-actions>
+		<i-test-actions @submit="beforeSubmit" @on-page="handlePage" :current="current" :total="total"></i-test-actions>
 	</view>
 </template>
 
@@ -54,29 +54,43 @@
 				id : 0,
 				current: 1,
 				total: 0,
-				list: []
+				list: [],
+				expire : 0,
+				user_test_id : 0,
+				isBack : false
 			}
 		},
+		// 点击返回箭头触发的方法
 		onBackPress() {
-			// uni.showModal({
-			// 	content: '是否要放弃这场考试？',
-			// 	cancelText: '继续做题',
-			// 	confirmText: '放弃',
-			// 	success: res => {
-			// 		if (res.confirm) {
-			// 			console.log('用户点击确定');
-			// 			this.navTo("/pages/test-list/test-list")
-			// 		} else if (res.cancel) {
-			// 			console.log('用户点击取消');
-			// 		}
-			// 	},
+			if(this.isBack){
+				uni.$emit("refreshTestList")
+				return false
+			} 
+			
+			uni.showModal({
+				content: '是否要放弃这场考试?',
+				cancelText: '继续做题',
+				confirmText: '放弃',
+				success: res => {
+					if(res.confirm){
+						this.isBack = true
+						this.navBack()
+					}
+				},
 
-			// });
-			// return true
+			});
+			
+			return true
 		},
 		onLoad(e) {
+			if(!e.id){
+				this.$utils.toast("非法参数")
+				setTimeout(()=>{
+					this.navBack()
+				})
+			}
+			
 			this.id = e.id
-			console.log("id", this.id)
 			this.initLoad()
 		},
 		filters : {
@@ -91,34 +105,108 @@
 		computed : {
 			q(){
 				return this.list[this.current - 1] || {}
+			},
+			unDone(){
+				// 问题: 怎么样才能知道用户哪些题填了, 哪些没填
+				let arr = [] // 用来保存没有填写的题目序号
+				
+				this.list.forEach((item,index)=>{
+					if((item.type === 'answer' || item.type === 'completion') && !item.user_value[0]){
+						arr.push(index+1)
+					}else if((item.type === 'trueOrfalse' || item.type === 'radio') && item.user_value === -1){
+						arr.push(index + 1)
+					}else if(item.type === "checkbox" && item.user_value.length === 0){
+						arr.push(index + 1)
+					}
+					
+				})
+				
+				return arr
 			}
 		},
 		methods: {
 			// 初始化开始考试数据
 			async initLoad(){
 				try{
+					uni.showLoading({
+						title : "加载中...",
+						mask : false
+					})
 					const data = {id : this.id}
 					const response = await examApi.startExam(data)
-					console.log("response=>", response)
 					this.list = response.testpaper_questions
 					this.total = response.testpaper_questions.length
+					this.expire = response.expire
+					this.user_test_id = response.user_test_id
 				}catch(e){
 					//TODO handle the exception
 					console.log("error=>", e)
+				}finally{
+					uni.hideLoading()
 				}
 			},
 			// 考试时间结束方法
 			handleTestEnd() {
-				alert("考试时间结束")
+				this.isBack = true
+				this.$utils.toast("考试结束")
+				setTimeout(()=>{
+					this.navBack()
+				},600)
 			},
 			// 上一题与下一题切换
 			handlePage(page) {
 				console.log("page=>", page)
 				this.current = page
 			},
+			// 交卷前的验证
+			beforeSubmit(){
+				if(this.unDone.length > 0){
+					uni.showModal({
+						content: `还有题目没有完成,第${this.unDone}题`,
+						showCancel: false,
+						confirmText: '确定',
+						success: res => {},
+					});
+					return
+				}
+				
+				uni.showModal({
+					content: '是否要交卷?',
+					cancelText: '继续做题',
+					confirmText: '现在交卷',
+					success: res => {
+						if(res.confirm){
+							this.handleSubmit()
+						}
+					},
+
+				});
+				
+			},
 			// 交卷
-			handleSubmit() {
-				alert("交卷")
+			async handleSubmit() {
+				try{
+					uni.showLoading({
+						title : '交卷中...',
+						mask : false
+					})
+					const data = {
+						user_test_id : this.user_test_id,
+						value : this.list.map(item=>item.user_value)
+					}
+					const response = await examApi.endExam(data)
+
+					this.$utils.toast("交卷成功")
+					this.isBack = true
+					setTimeout(()=>{
+						this.navBack()
+					},600)
+				}catch(e){
+					//TODO handle the exception
+					console.log("error=>",e)
+				}finally{
+					uni.hideLoading()
+				}
 			},
 			// 添加填空
 			handleAddCompletion(){

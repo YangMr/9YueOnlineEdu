@@ -37,10 +37,16 @@
 		},
 		onLoad() {
 			this.initLoad()
+			
+			uni.$on("refreshTestList", ()=>{
+				this.initData()
+			})
+		},
+		destroyed() {
+			uni.$off("refreshTestList")
 		},
 		onPullDownRefresh() {
-			this.page = 1
-			this.initLoad()
+			this.initData()
 		},
 		onReachBottom() {
 			this.page += 1
@@ -48,6 +54,10 @@
 			this.initLoad()
 		},
 		methods: {
+			initData(){
+				this.page = 1
+				this.initLoad()
+			},
 			handleStartTest(item){
 				uni.showModal({
 					content: '是否要开始考试？',

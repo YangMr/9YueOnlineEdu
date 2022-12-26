@@ -10,7 +10,13 @@ const startExam = (data = {}) => {
 	return Http.request({ url : '/mobile/testpaper/read', method : 'GET', data})
 }
 
+// 考试交卷
+const endExam = (data = {}) => {
+	return Http.request({url : '/mobile/user_test/save', method : 'POST', data})
+}
+
 export default {
 	getExamList,
-	startExam
+	startExam,
+	endExam
 }
