@@ -25,11 +25,11 @@
 				<view class="flex align-center">
 					<view class="flex align-center pr-2">
 						<text class="iconfont icon-pinglun2"></text>
-						<text class="ml-1">{{item.comment_count}}</text>
+						<text class="ml-1">{{item.comment_count === 0 ? '评论' : item.comment_count}}</text>
 					</view>
-					<view class="flex align-center pr-2">
+					<view :class="item.support_count ? 'text-danger' : ''" class="flex align-center pr-2" @click="$emit('support', item.id)">
 						<text class="iconfont icon-dianzan2"></text>
-						<text class="ml-1">{{item.support_count}}</text>
+						<text   class="ml-1 ">{{item.support_count === 0 ? '点赞' : item.support_count}}</text>
 					</view>
 				</view>
 				<text class="text-light-muted font">

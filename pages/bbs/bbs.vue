@@ -23,13 +23,14 @@
 		
 		
 		<!-- 帖子列表 -->
-		<post-list :item="item" v-for="(item,index) in postList" :key="index"></post-list>
+		<post-list @support="handleSupport" :item="item" v-for="(item,index) in postList" :key="index"></post-list>
 		<uni-load-more  :status="postListLoadStatus" :iconSize="13"></uni-load-more>
 	</view>
 </template>
 
 <script>
 	import bbsApi from "@/api/bbs.js"
+	import {mapGetters} from "vuex"
 	export default {
 		data() {
 			return {
@@ -50,9 +51,17 @@
 				postList : []
 			}
 		},
+		computed : {
+			...mapGetters([
+				"hasLogin"
+			])
+		},
 		onLoad() {
 			this.initLoadBbs()
 			this.initLoadPostList()
+		},
+		onNavigationBarButtonTap(e) {
+			this.navTo("/pages/add-post/add-post")
 		},
 		onNavigationBarSearchInputConfirmed(e) {
 			this.listQuery.keyword = e.text
@@ -77,6 +86,46 @@
 			this.initLoadPostList()
 		},
 		methods: {
+			// 点赞触发的方法
+			async handleSupport(id){
+				try{
+					console.log("hasLogin=>",this.hasLogin)
+					if(!this.hasLogin){
+						this.navTo("/pages/login/login")
+						return 
+					}
+					// "issupport": false  没有点赞 true 已经点赞
+					// 什么情况下调用点赞的接口 ? 
+					// 什么情况下调用取消点赞的接口 ? 		
+					const item = this.postList.find(item=>{
+						return item.id === id
+					})
+					
+					const data = {post_id : id}
+					if(!item.issupport){
+						
+						const response = await bbsApi.supportPostList(data)
+						item.support_count += 1
+						
+						this.$utils.toast("点赞成功")
+						// 点赞接口
+						console.log("点赞")
+					}else{
+						const response = await bbsApi.unsupportPostList(data)
+						item.support_count -= 1
+						
+						this.$utils.toast("取消点赞")
+						// 取消点赞接口
+						console.log("取消点赞")
+					}
+					item.issupport = !item.issupport
+				}catch(e){
+					//TODO handle the exception
+					console.log("error=>", e)
+				}
+				
+
+			},
 			async initLoadPostList(){
 				try{
 					uni.showLoading({
