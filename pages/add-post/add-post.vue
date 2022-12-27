@@ -14,7 +14,7 @@
 					<textarea v-model="item.text" placeholder="请填写帖子内容" class="bg-light w-100 p-2 " style="box-sizing: border-box;" />
 				</view>
 				<view>
-					上传组件
+					上传组件123
 				</view>
 			</uni-card>
 		</view>
