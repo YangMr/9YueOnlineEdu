@@ -335,6 +335,16 @@
             }
             
         }
+        ,{
+            "path" : "pages/post-detail/post-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "帖子详情",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

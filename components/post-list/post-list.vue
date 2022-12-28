@@ -12,7 +12,7 @@
 				<view v-if="item.is_top" class="bg-warning text-white px-2 py-1 font">精华</view>
 			</view>
 			
-			<view class="py-2">
+			<view v-if="!isContent" class="py-2" @click="handleToPostDetail">
 				<text>{{item.desc.text}}</text>
 				<view class="flex flex-wrap" v-if="item.desc.images.length > 0">
 					<view class="flex justify-center align-center mt-1" style="width:33.33%;" v-for="(src,srcI) in item.desc.images" :key="srcI">
@@ -20,8 +20,12 @@
 					</view>
 				</view>
 			</view>
+			<view v-else class="flex flex-column p-2" v-for="(item2,index2) in item.content" :key="index2">
+				<text class="mb-1">{{item2.text}}</text>
+				<image class="w-100" v-for="(img,imgIndex) in item2.images"  :key="imgIndex" :src="img" mode="widthFix"></image>
+			</view>
 			
-			<view class="flex align-center justify-between mt-2">
+			<view v-if="!isContent" class="flex align-center justify-between mt-2">
 				<view class="flex align-center">
 					<view class="flex align-center pr-2">
 						<text class="iconfont icon-pinglun2"></text>
@@ -48,12 +52,21 @@
 			item : {
 				type : Object,
 				default : () => ({})
+			},
+			isContent : {
+				type : Boolean,
+				default : false
 			}
 		},
 		data() {
 			return {
 				
 			};
+		},
+		methods : {
+			handleToPostDetail(){
+				this.navTo("/pages/post-detail/post-detail?id=" + this.item.id)
+			}
 		}
 	}
 </script>
