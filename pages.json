@@ -280,8 +280,9 @@
             "path" : "pages/my-post/my-post",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "我的帖子",
+                "enablePullDownRefresh": true,
+				"navigationBarBackgroundColor": "#fff"
             }
             
         }

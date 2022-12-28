@@ -30,11 +30,29 @@ const readPostCommentList = (data = {}) => {
 	return Http.request({url : '/mobile/post_comment', method : 'GET', data})
 }
 
+// 我的帖子列表
+const getMyPostList = (data = {}) => {
+	return Http.request({url : '/mobile/mypost', method : 'GET', data })
+}
+
+// 删除帖子
+const deleteMyPost = (data = {}) => {
+	return Http.request({url : '/mobile/post/delete', method : 'POST', data})
+}
+
+// 评论帖子
+const addComment = (data = {}) => {
+	return Http.request({url : '/mobile/post/reply', method : 'POST', data})
+}
+
 export default {
 	getBbsList,
 	getPostList,
 	supportPostList,
 	unsupportPostList,
 	readPostDetail,
-	readPostCommentList
+	readPostCommentList,
+	getMyPostList,
+	deleteMyPost,
+	addComment
 }

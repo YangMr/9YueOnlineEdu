@@ -59,6 +59,13 @@
 		onLoad() {
 			this.initLoadBbs()
 			this.initLoadPostList()
+			
+			uni.$on("refresh", ()=>{
+				this.initLoadPostList()
+			})
+		},
+		destroyed() {
+			uni.$off('refresh')
 		},
 		onNavigationBarButtonTap(e) {
 			this.navTo("/pages/add-post/add-post")
