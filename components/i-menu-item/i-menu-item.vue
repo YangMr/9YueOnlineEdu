@@ -1,9 +1,9 @@
 <template>
-	<view @click="$emit('click')" hover-class="bg-light" class="flex p-3 align-center border-bottom" >
-		<text class="text-muted" style="width:90rpx;">
+	<view  @click="$emit('click')" hover-class="bg-light" class="flex p-3 align-center border-bottom" >
+		<text :class="active ? 'text-main' : 'text-muted'" class="" style="width:90rpx;">
 			{{(index + 1)|formatIndex}}
 		</text>
-		<view class="flex flex-column text-muted align-start ">
+		<view :class="active ? 'text-main' : 'text-muted'" class="flex flex-column align-start ">
 			{{title}}
 			<slot></slot>
 		</view>
@@ -21,6 +21,10 @@
 			index : {
 				type : Number,
 				default : 0
+			},
+			active : {
+				type : Boolean,
+				default : false
 			}
 		},
 		data() {

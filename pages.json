@@ -53,8 +53,9 @@
             "path" : "pages/msg-list/msg-list",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "消息列表",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": true
             }
             
         }
@@ -301,8 +302,9 @@
             "path" : "pages/my-book/my-book",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "我的电子书",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": true
             }
             
         }

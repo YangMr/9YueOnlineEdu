@@ -15,7 +15,8 @@
 					
 					<!-- 订阅 -->
 					<view class="flex align-center text-muted ml-auto border rounded-circle border-danger px-2 py-1 justify-center ">
-						<text>{{item.sub_count}}人订阅</text>
+						<text v-if="isBuy">立即学习</text>
+						<text v-else>{{item.sub_count}}人订阅</text>
 						<text class="iconfont icon-xiayibu ml-1"></text>
 					</view>
 				</slot>
@@ -32,6 +33,10 @@
 			item : {
 				type : Object,
 				default : () => ({})
+			},
+			isBuy : {
+				type : Boolean,
+				default : false
 			}
 		},
 		filters : {

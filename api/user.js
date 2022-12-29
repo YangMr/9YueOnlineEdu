@@ -45,6 +45,11 @@ const upload = (filePath) => {
 	return Http.upload('/mobile/upload',{filePath})
 }
 
+// 公告列表
+const getMessageList = (data = {}) => {
+	return Http.request({url : '/mobile/notice/list', method : 'GET', data})
+}
+
 // 导出所有接口
 export default {
 	register,
@@ -55,5 +60,6 @@ export default {
 	logout,
 	changePassword,
 	updateProfile,
-	upload
+	upload,
+	getMessageList
 }
