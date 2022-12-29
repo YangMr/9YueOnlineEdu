@@ -242,8 +242,9 @@
             "path" : "pages/book-list/book-list",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "电子书列表",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": true
             }
             
         }
@@ -342,6 +343,24 @@
             {
                 "navigationBarTitleText": "帖子详情",
 				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/book-detail/book-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/book/book",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
