@@ -17,7 +17,10 @@
 		<!-- 描述 -->
 		<view class="flex flex-column p-3">
 			<text class="mb-1" style="font-size:38rpx;">{{detail.title}}</text>
-			<text class="font-sm text-light-muted">{{detail.sub_count}}人学过</text>
+			<view class="flex align-center justify-between">
+				<text class="font-sm text-light-muted">{{detail.sub_count}}人学过</text>
+				<i-collection-btn @success="detail.isfava = $event" :isfava="detail.isfava" :goods_id="detail.id" ></i-collection-btn>
+			</view>
 			<view v-if="!detail.isbuy" class="flex align-end mt-2">
 				<text class="text-danger font-lg">¥{{detail.price}}</text>
 				<text class="font-sm text-light-muted ml-1 text-through">¥{{detail.t_price}}</text>

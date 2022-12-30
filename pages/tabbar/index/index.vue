@@ -39,7 +39,7 @@
 					
 					<view class="flex px-2 align-center justify-between py-3">
 						<text class="font-md font-weight-bold">{{item.title}}</text>
-						<text v-if="item.more" class="font-sm text-light-muted">查看更多</text>
+						<text v-if="item.more" class="font-sm text-light-muted" @click="handleMore">查看更多</text>
 					</view>
 					<view>
 						<scroll-view class="scroll-row" scroll-x="true" >
@@ -117,6 +117,10 @@
 				}finally{
 					this.loadingStatus = false
 				}
+			},
+			// 查看更多
+			handleMore(){
+				this.navTo("/pages/list/list?module=course" )
 			}
 		}
 	}

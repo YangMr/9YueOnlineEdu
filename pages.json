@@ -63,8 +63,9 @@
             "path" : "pages/fava-list/fava-list",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "收藏列表",
+                "enablePullDownRefresh": true,
+				"navigationBarBackgroundColor": "#fff"
             }
             
         }
@@ -254,7 +255,8 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true,
+				"navigationBarBackgroundColor": "#fff"
             }
             
         }

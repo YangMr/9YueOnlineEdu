@@ -6,10 +6,12 @@
 		</view>
 		<view class="flex flex-column">
 			<text class="text-ellipsis font-md">{{item.title}}</text>
-			<slot name="desc"></slot>
+			<slot name="desc">
+				<view class="text-ellipsis my-1 font-sm text-muted" v-html="item.try" v-if="item.try && !item.price"></view>
+			</slot>
 			<view class="flex flex-1 align-end">
 				<slot>
-					<text class="font text-danger" v-if="item.price === 0">免费</text>
+					<text class="font-md text-danger" v-if="item.price == 0">免费</text>
 					<text class="font text-danger" v-else-if="item.price > 0">￥{{item.price}}</text>
 					<text class="font-sm text-light-muted" v-if="item.t_price">￥{{item.t_price}}</text>
 				</slot>
