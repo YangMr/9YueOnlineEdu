@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view v-for="(item,index) in bookList" :key="index">
-			<i-course-list type="one" :item="item"></i-course-list>
+		<view class="flex flex-wrap">
+			<i-course-list :module='module'  v-for="(item,index) in bookList" :key="index" :type="module === 'course' || module ==='column' ? 'one' : 'two' " :item="item"></i-course-list>
 		</view>
 		
 		<uni-load-more :status="loadStatus"></uni-load-more>
@@ -10,6 +10,8 @@
 
 <script>
 	import detailApi from "@/api/detail.js"
+	import indexApi from "@/api/index.js"
+	import liveApi from "@/api/live.js"
 	export default {
 		data() {
 			return {
@@ -25,9 +27,16 @@
 			if(e.module){
 				this.module = e.module
 				
-				let title =  e.module === 'course' ? '课程' : '专栏'
+				// let title =  e.module === 'course' ? '课程' : '专栏'
+				let type = {
+					course : '课程',
+					column : '专栏',
+					flashsale : '秒杀',
+					group : '拼团',
+					live : '直播'
+				}
 				uni.setNavigationBarTitle({
-					title :  title + '列表'
+					title :  type[this.module] + '列表'
 				})
 			}
 			
@@ -59,7 +68,36 @@
 						limit : this.limit
 					}
 					this.loadStatus = "loading"
-					const response = await detailApi.getCourseList(data)
+					
+					let requestApi = {
+						course :  detailApi.getCourseList(data),
+						column :  detailApi.getColumnList(data),
+						flashsale :  indexApi.getFlashsaleList(data),
+						group :  indexApi.getGroupList(data),
+						live :   liveApi.getLiveList(data)
+					}
+					
+					if(this.module === 'flashsale' || this.module === 'group'){
+						data.usable = 1
+					}
+					
+					console.log('this.module',requestApi[this.module])
+					
+					let response =await requestApi[this.module]
+					// if(this.module === 'course'){
+					// 	 response = await detailApi.getCourseList(data)
+					// }else if(this.module ==='column' ){
+					// 	 response = await detailApi.getColumnList(data)
+					// }else if(this.module === 'flashsale'){
+					// 	data.usable = 1
+					// 	response = await indexApi.getFlashsaleList(data)
+					// }else if(this.module === 'group'){
+					// 	data.usable = 1
+					// 	response = await indexApi.getGroupList(data)
+					// }else if(this.module === 'live'){
+					// 	response = await liveApi.getLiveList(data)
+					// }
+					
 					this.total = response.count
 					let rows = response.rows
 					

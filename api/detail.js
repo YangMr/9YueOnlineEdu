@@ -5,6 +5,11 @@ const getCourseList = (data = {}) => {
 	return Http.request({url : '/mobile/course/list', method : 'GET', data})
 }
 
+// 专栏列表
+const getColumnList = (data = {}) => {
+	return Http.request({url : '/mobile/column/list', method : 'GET', data})
+}
+
 // 查看课程详情
 const getCourseDetail = (data = {}) => {
 	return Http.request({url : '/mobile/course/read', method : 'GET', data})
@@ -18,5 +23,6 @@ const getColumnDetail = (data = {}) => {
 export default {
 	getCourseDetail,
 	getColumnDetail,
-	getCourseList
+	getCourseList,
+	getColumnList
 }
